@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio Erwann Bailly</title>
+
+<link rel="stylesheet" href="fonts.css">
+<style>
+/* Concept : une planche d'architecte, sobre. Cartouche, cotations, grille de calque, tons de papier et d'encre. */
+:root{
+  --bg:#EDEDEA;          /* papier gris chaud */
+  --surface:#F6F6F4;
+  --ink:#1B1D1F;
+  --muted:#686B6E;
+  --line:#CBCCC8;
+  --accent:#3F5361;      /* gris-bleu ardoise */
+  --ph:rgba(63,83,97,.12);
+  --f-display:'Archivo','Arial Narrow',Arial,sans-serif;
+  --f-body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141516;--surface:#1C1D1F;--ink:#E7E7E4;--muted:#9A9C9E;--line:#33353A;--accent:#9FB3C0;--ph:rgba(159,179,192,.16);color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141516;--surface:#1C1D1F;--ink:#E7E7E4;--muted:#9A9C9E;--line:#33353A;--accent:#9FB3C0;--ph:rgba(159,179,192,.16);color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg);color:var(--ink);font:16px/1.6 var(--f-body);margin:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0 32px;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1180px;margin-inline:auto}
+.mono{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase}
+.ph{background:var(--ph);padding:0 .25em;border-radius:2px}
+
+.note{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;background:var(--surface);border:1px dashed var(--accent);padding:10px 12px;margin-top:12px;font-size:.85rem}
+.note p{margin:0;min-width:0}
+.note button{flex:none}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--ink)}
+header.top .wrap{display:flex;flex-wrap:wrap;gap:4px 24px;align-items:center;justify-content:space-between;padding-block:12px}
+.brand{font-family:var(--f-display);font-stretch:125%;font-weight:800;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;font-size:.95rem}
+nav{display:flex;flex-wrap:wrap;gap:4px 20px}
+nav a{text-decoration:none;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+
+section{padding-block:56px 8px;scroll-margin-top:64px}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance}
+h2{font-stretch:112%;font-weight:800;font-size:clamp(1.6rem,4vw,2.4rem);text-transform:uppercase;letter-spacing:.01em;line-height:1.05}
+.eyebrow{display:flex;justify-content:space-between;gap:12px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:22px}
+
+.hero{padding-block:44px 8px;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:40px 40px;background-position:-1px -1px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;align-items:end}
+.hero h1{font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:clamp(2.6rem,10.5vw,8rem);line-height:.9;letter-spacing:-.01em;background:var(--bg);display:inline;box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:.04em .08em}
+.hero h1 span{display:block}
+.lead{font-size:1.15rem;max-width:34rem;margin:28px 0 0;background:var(--bg);padding:6px 0}
+.scale{display:flex;align-items:center;gap:10px;margin-top:22px;color:var(--accent)}
+.scale i{display:block;height:8px;border:1px solid currentColor;width:48px}
+.scale i:nth-of-type(odd){background:currentColor}
+.cartouche{background:var(--surface);border:1.5px solid var(--ink);margin:0}
+.cartouche div{display:grid;grid-template-columns:7.5rem minmax(0,1fr);border-bottom:1px solid var(--ink)}
+.cartouche div:last-child{border-bottom:0}
+.cartouche dt,.cartouche dd{margin:0;padding:9px 12px}
+.cartouche dt{border-right:1px solid var(--ink);color:var(--muted)}
+.cartouche dd{overflow-wrap:anywhere}
+.status{display:inline-flex;align-items:center;gap:8px}
+.status::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.cotation{height:28px;margin-top:40px;color:var(--accent)}
+.cotation svg{display:block;width:100%;height:100%}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 28px;margin-top:22px}
+.card{margin:0}
+.card a{display:block;text-decoration:none}
+.thumb{position:relative;background:var(--surface);border:1px solid var(--ink);aspect-ratio:4/3;max-width:100%;overflow:hidden}
+.thumb svg,.thumb img{display:block;width:100%;height:100%}
+.thumb img{object-fit:cover;transition:transform .35s ease}
+.card a:hover .thumb img{transform:scale(1.03)}
+.card a:hover h3{text-decoration:underline;text-underline-offset:4px}
+.tag{position:absolute;top:8px;right:8px;background:var(--bg);border:1px solid var(--ink);color:var(--ink);padding:2px 7px}
+.card-meta{display:grid;grid-template-columns:3.2rem minmax(0,1fr);gap:4px 12px;padding-top:12px}
+.card-meta .ref{color:var(--accent);padding-top:5px}
+.card h3{font-stretch:110%;font-weight:700;font-size:1.25rem;line-height:1.2}
+.card-meta p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+
+.soon{color:var(--muted)}
+.soon .box{stroke:var(--line);stroke-width:1}
+.soon text{font:500 10px var(--f-mono);letter-spacing:.08em;fill:var(--muted);text-transform:uppercase}
+
+.timeline{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.timeline li{display:grid;grid-template-columns:9rem minmax(0,1fr);gap:8px 24px;padding:16px 0;border-bottom:1px solid var(--line)}
+.timeline .when{color:var(--accent);padding-top:3px}
+.timeline h3{font-stretch:105%;font-weight:700;font-size:1.1rem}
+.timeline p{margin:4px 0 0;color:var(--muted)}
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.tools h3{font-stretch:105%;font-weight:700;font-size:1rem;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:12px}
+.tools ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.tools li{border:1px solid var(--line);padding:4px 10px;font-size:.9rem;background:var(--surface)}
+
+.contact-list{display:grid;gap:0;border-top:1px solid var(--ink);max-width:720px;margin:0}
+.contact-list div{display:grid;grid-template-columns:7rem minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.contact-list dt{color:var(--muted)}
+.contact-list dd{margin:0;overflow-wrap:anywhere}
+.btn{font:inherit;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;background:transparent;color:var(--ink);border:1px solid var(--ink);padding:6px 10px;cursor:pointer}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.pitch{max-width:34rem;margin:0 0 24px}
+footer{margin-top:64px;border:1.5px solid var(--ink);background:var(--surface);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding:10px 14px;color:var(--muted)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:8px 14px;z-index:60;max-width:calc(100% - 32px)}
+
+/* fiche projet */
+#detail{position:fixed;inset:0;z-index:50;background:var(--bg);overflow:auto;overscroll-behavior:contain;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))}
+.d-bar{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:space-between;align-items:center;padding-block:14px;border-bottom:1px solid var(--ink)}
+.d-nav{display:flex;gap:8px}
+.d-nav a{text-decoration:none}
+.d-body{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:36px;padding-block:28px;align-items:start}
+.gallery{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:20px}
+.gallery figure{margin:0;min-width:0;grid-column:span 3}
+.gallery figure.wide{grid-column:1 / -1}
+.gallery figure.third{grid-column:span 2}
+.gallery .frame{border:1px solid var(--ink);background:#fff;line-height:0}
+.gallery img{display:block;width:100%;height:auto;max-width:100%}
+.gallery figcaption{margin-top:8px;color:var(--muted)}
+.d-info{position:sticky;top:16px;min-width:0}
+.d-info h2{margin:4px 0 0}
+.d-info .ref{color:var(--accent)}
+.d-text{margin:20px 0 0}
+.d-text p{margin:0 0 12px}
+
+@media (max-width:900px){
+  .d-info{position:static}
+  .d-body{grid-template-columns:minmax(0,1fr)}
+  .d-info{order:-1}
+}
+@media (max-width:820px){
+  .hero-grid{grid-template-columns:minmax(0,1fr)}
+  .tools{grid-template-columns:minmax(0,1fr)}
+  .timeline li{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:560px){
+  .grid,.gallery{grid-template-columns:minmax(0,1fr)}
+  .gallery figure,.gallery figure.third{grid-column:auto}
+  .contact-list div{grid-template-columns:minmax(0,1fr) auto}
+  .contact-list dt{grid-column:1 / -1}
+  .cartouche div{grid-template-columns:6.2rem minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){.thumb img{transition:none}.card a:hover .thumb img{transform:none}}
+</style>
+
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="note" id="note" hidden>
+    <p><strong>Version de travail.</strong> Les éléments surlignés (<span class="ph">ainsi</span>) sont à compléter : l’année du baccalauréat.</p>
+    <button class="btn" id="note-close" type="button">Fermer</button>
+  </div>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#" data-go="accueil">E. Bailly</a>
+    <nav class="mono" aria-label="Sections">
+      <a href="#" data-go="projets">Projets</a>
+      <a href="#" data-go="parcours">Parcours</a>
+      <a href="#" data-go="outils">Outils</a>
+      <a href="#" data-go="contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero" id="accueil">
+    <div class="hero-grid">
+      <div>
+        <h1><span>Erwann</span><span>Bailly</span></h1>
+        <p class="lead">Étudiant en 2e année à l’ENSA Paris-Val de Seine. Je cherche un stage d’un mois en agence, à l’été 2027 ou en deux périodes de deux semaines.</p>
+        <div class="scale mono" aria-hidden="true"><i></i><i></i><i></i><i></i><span>Échelle 1:50</span></div>
+      </div>
+      <dl class="cartouche">
+        <div><dt class="mono">Statut</dt><dd><span class="status">Recherche un stage</span></dd></div>
+        <div><dt class="mono">Période</dt><dd>Juillet ou août 2027, ou février et été 2027</dd></div>
+        <div><dt class="mono">Durée</dt><dd>1 mois, ou 2 fois 2 semaines</dd></div>
+        <div><dt class="mono">Formation</dt><dd>ENSA Paris-Val de Seine, 2e année (L2)</dd></div>
+        <div><dt class="mono">Pièces</dt><dd>Portfolio, CV, lettre de motivation</dd></div>
+      </dl>
+    </div>
+    <div class="cotation" aria-hidden="true">
+      <svg viewBox="0 0 1000 28" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="1.2">
+        <path d="M0 14H1000M0 4V24M1000 4V24" vector-effect="non-scaling-stroke"/>
+        <path d="M-6 20L6 8M994 20L1006 8" vector-effect="non-scaling-stroke"/>
+      </svg>
+    </div>
+  </section>
+
+  <section id="projets">
+    <div class="eyebrow mono"><span>Projets</span><span>5 projets récents</span></div>
+    <h2>Planches choisies</h2>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="parcours">
+    <div class="eyebrow mono"><span>Parcours</span><span>Du plus récent au plus ancien</span></div>
+    <h2 style="margin-bottom:22px">Formation et expériences</h2>
+    <ol class="timeline">
+      
+      <li><span class="when mono">2025 à ce jour</span><div><h3>ENSA Paris-Val de Seine</h3><p>Licence d’architecture, 2e année en cours.</p></div></li>
+      <li><span class="when mono">2025</span><div><h3>Stage de chantier</h3><p>Chantier à Sceaux.</p></div></li>
+      <li><span class="when mono">2025</span><div><h3>Baccalauréat général</h3><p>Spécialités mathématiques et humanités, littérature et philosophie.</p></div></li>
+    </ol>
+  </section>
+
+  <section id="outils">
+    <div class="eyebrow mono"><span>Outils</span><span>Archicad et dessin à la main</span></div>
+    <h2 style="margin-bottom:22px">Ce que je sais utiliser</h2>
+    <div class="tools">
+      <div><h3>Logiciel</h3><ul><li>Archicad</li></ul></div>
+      <div><h3>Dessin à la main</h3><ul><li>Croquis</li><li>Perspectives</li><li>Plans et coupes</li></ul></div>
+      <div><h3>Atelier</h3><ul><li>Maquette d’étude</li><li>Maquette de site</li></ul></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="eyebrow mono"><span>Contact</span><span>Stage d’un mois</span></div>
+    <h2 style="margin-bottom:16px">Travaillons ensemble</h2>
+    <p class="pitch">Je cherche un stage d’un mois en agence, demandé par mon école : juillet ou août 2027, ou deux périodes de deux semaines (février et été), selon vos disponibilités. Mon CV et mes planches en haute définition sont disponibles sur demande.</p>
+    <dl class="contact-list">
+      <div><dt class="mono">Courriel</dt><dd><span data-copy>baillyerwann@gmail.com</span></dd><button class="btn" type="button">Copier</button></div>
+      <div><dt class="mono">Téléphone</dt><dd><span data-copy>06 52 77 86 26</span></dd><button class="btn" type="button">Copier</button></div>
+      
+    </dl>
+  </section>
+
+  <footer class="mono"><span>Bailly Erwann</span><span>Portfolio</span><span>Octobre 2026</span><span>Planche 1/1</span></footer>
+</main>
+
+<div id="detail" role="dialog" aria-modal="true" aria-labelledby="d-title" hidden></div>
+<div class="toast mono" id="toast" role="status" hidden></div>
+
+<script>
+(function(){
+  function soon(title){
+    return '<svg class="soon" viewBox="0 0 400 300" role="img" aria-label="Images à venir pour '+title+'" fill="none">'+
+      '<rect class="box" x="1" y="1" width="398" height="298"/>'+
+      '<path class="box" d="M1 1L399 299M399 1L1 299" stroke-dasharray="4 5"/>'+
+      '<rect x="120" y="128" width="160" height="44" fill="var(--surface)" stroke="var(--line)"/>'+
+      '<text x="200" y="155" text-anchor="middle">Planches à venir</text></svg>';
+  }
+
+  var projects=[
+    {id:'maison-al-aires-mateus',ref:'P-01',title:'Étude de la maison Al',type:'Analyse',year:'2026, L1 semestre 2',cadre:'En binôme avec Mathias Cultier',prog:'Étude d’une maison d’Aires Mateus',dim:'Maquettes 1:50, 1:200 et 1:500',outils:'Dessin à la main, maquette',
+     cover:'al-maquette-1-200.jpg',
+     images:[
+       {src:'al-maquettes.jpg',alt:'Trois maquettes de la maison Al sur fond noir, aux échelles 1:50, 1:200 et 1:500',cap:'Maquettes au 1:50, 1:200 et 1:500',wide:true},
+       {src:'al-perspective-int.jpg',alt:'Perspective intérieure dessinée à la main',cap:'Perspective intérieure'},
+       {src:'al-perspective-ext.jpg',alt:'Perspective extérieure dessinée à la main',cap:'Perspective extérieure'},
+       {src:'al-plan.jpg',alt:'Plan de la maison Al au 1:200, creusé dans la roche',cap:'Plan, 1:200'},
+       {src:'al-plan-salon.jpg',alt:'Plan du salon au 1:100',cap:'Plan du salon, 1:100'},
+       {src:'al-elevation.jpg',alt:'Élévation de la maison Al au 1:200',cap:'Élévation, 1:200',wide:true},
+       {src:'al-coupe-c1.jpg',alt:'Coupe C1 : la maison dans la pente',cap:'Coupe C1, 1:200'},
+       {src:'al-coupe-c2.jpg',alt:'Coupe C2 : deux volumes dans la colline',cap:'Coupe C2, 1:200'},
+       {src:'al-coupe-c3.jpg',alt:'Coupe C3 au 1:100',cap:'Coupe C3, 1:100',wide:true},
+       {src:'al-croquis-intention.jpg',alt:'Croquis d’intention : creuser le plein, diriger le regard, plan sur grille',cap:'Croquis d’intention',wide:true},
+       {src:'al-maquette-1-50.jpg',alt:'Maquette au 1:50, vue de la façade',cap:'Maquette 1:50, façade'},
+       {src:'al-maquette-1-200.jpg',alt:'Maquette au 1:200 avec ses ombres portées',cap:'Maquette 1:200'},
+       {src:'al-maquette-topo.jpg',alt:'Maquette topographique au 1:500',cap:'Maquette topographique, 1:500'},
+       {src:'al-maquette-detail.jpg',alt:'Maquette au 1:50, détail de la toiture et de l’escalier',cap:'Maquette 1:50, toiture et escalier'}
+     ],
+     text:['Étude de la maison Al, d’Aires Mateus, réalisée en binôme avec Mathias Cultier. L’analyse retient quelques idées de la maison : creuser dans la roche pour faire émerger l’espace, et mettre les espaces de service en retrait, comme une extension du rocher.','Le plan principal reste ouvert, sur une grille de poteaux porteurs. Les vues rasantes cadrent le paysage, et la lumière entre par le haut ou de face.','Le travail réunit un plan, une élévation, trois coupes, deux perspectives dessinées à la main, des croquis d’intention et des maquettes aux échelles 1:50, 1:200 et 1:500.']},
+    {id:'maison-atelier',ref:'P-02',title:'Maison atelier',type:'Conception',year:'2026, L1 semestre 2',cadre:'',prog:'Maison et atelier',dim:'Bâtiment en bandeau',outils:'Dessin à la main, Archicad, maquette en bois et carton',
+     cover:'maison-atelier-maquette-coupe.jpg',
+     images:[
+       {src:'maison-atelier-maquette-coupe.jpg',alt:'Maquette en coupe de la maison atelier, vue de face',cap:'Maquette en coupe',wide:true},
+       {src:'maison-atelier-plan.png',alt:'Plan du rez-de-chaussée de la maison atelier',cap:'Plan du rez-de-chaussée',wide:true},
+       {src:'maison-atelier-coupe.png',alt:'Coupe de la maison atelier avec le mobilier',cap:'Coupe au 1:50',wide:true},
+       {src:'maison-atelier-coupe-perspective.jpg',alt:'Coupe perspective dessinée à la main',cap:'Coupe perspective à la main'},
+       {src:'maison-atelier-maquette-vue.jpg',alt:'Maquette de la maison atelier, vue depuis l’extrémité',cap:'Maquette, vue d’ensemble'}
+     ],
+     text:['Une maison en bandeau, étroite et longue, qui ne s’ouvre que sur sa largeur. La lumière et les vues entrent par les deux extrémités, le reste du volume reste fermé.','Le programme se découpe en deux corps : un volume à étage pour l’habitation, et un atelier sous une toiture en pente, séparés par une cour. Le projet est présenté en plan, en coupe, en coupe perspective dessinée à la main et en maquette.']},
+    {id:'hauts-sejours-chromatiques',ref:'P-03',title:'Les hauts séjours chromatiques',type:'Conception',year:'2026, L1 semestre 2',cadre:'',prog:'Maisons en bande pour la colocation étudiante',dim:'Six maisons, trois niveaux',outils:'Dessin à la main, Archicad, maquette',
+     cover:'hsc-elevation-nord.jpg',pos:'64% 50%',
+     images:[
+       {src:'hsc-elevation-nord.jpg',alt:'Élévation nord des six maisons, chacune d’une couleur différente',cap:'Élévation nord, 1:100',wide:true},
+       {src:'hsc-perspective-exterieure.jpg',alt:'Perspective extérieure de la rangée de maisons',cap:'Perspective extérieure'},
+       {src:'hsc-perspective-interieure.jpg',alt:'Perspective intérieure du séjour',cap:'Perspective intérieure'},
+       {src:'hsc-plan-masse.jpg',alt:'Plan de masse de la rangée dans son quartier',cap:'Plan de masse, 1:500'},
+       {src:'hsc-plan-rdc-100.jpg',alt:'Plan des rez-de-chaussée des six maisons et de leurs jardins',cap:'Plan des rez-de-chaussée, 1:100'},
+       {src:'hsc-plan-rdc.png',alt:'Plan du rez-de-chaussée d’une maison',cap:'Plan du rez-de-chaussée, 1:50'},
+       {src:'hsc-plan-r1.png',alt:'Plan du premier étage d’une maison',cap:'Plan du R+1, 1:50'},
+       {src:'hsc-plan-r2.png',alt:'Plan du deuxième étage d’une maison',cap:'Plan du R+2, 1:50'},
+       {src:'hsc-coupe-bb.png',alt:'Coupe transversale BB d’une maison',cap:'Coupe BB, 1:50'},
+       {src:'hsc-coupe-aa.png',alt:'Coupe perspective AA d’une maison',cap:'Coupe AA en perspective'},
+       {src:'hsc-maquette-facade.jpg',alt:'Maquette d’une maison, vue de la façade d’entrée',cap:'Maquette, façade et rez-de-chaussée'},
+       {src:'hsc-maquette-etage-haut.jpg',alt:'Maquette d’une maison, vue du dessus sur le séjour et les chambres',cap:'Maquette, vue du dessus'},
+       {src:'hsc-maquette-terrasse.jpg',alt:'Maquette d’une maison, vue du dessus avec la terrasse',cap:'Maquette, terrasse et étages'},
+       {src:'hsc-croquis-promenade.png',alt:'Croquis : une promenade autour du salon',cap:'Croquis, une promenade autour du salon'},
+       {src:'hsc-croquis-hauteurs.png',alt:'Croquis : chaque pièce a sa propre hauteur',cap:'Croquis, chaque pièce a sa hauteur'},
+       {src:'hsc-croquis-fenetre.png',alt:'Croquis : une fenêtre qui s’ouvre pour agrandir le salon',cap:'Croquis, la fenêtre qui agrandit le salon'},
+       {src:'hsc-croquis-couleurs.jpg',alt:'Croquis de plan en couleurs',cap:'Croquis, répartition des pièces en couleur'},
+       {src:'hsc-plan-equipement.png',alt:'Plan d’un équipement avec bibliothèque, restaurant et salle de sport',cap:'Plan de l’équipement voisin',wide:true}
+     ],
+     text:['Six maisons en bande, toutes semblables, pour des colocations entre étudiants. Chaque maison s’élève sur trois niveaux, et sa façade a sa propre couleur : l’ensemble forme une rangée colorée dans la rue.','Le séjour est le cœur de la maison. Les croquis de départ posent trois idées : une promenade autour du salon, une hauteur propre à chaque pièce, et une fenêtre qui s’ouvre pour agrandir le séjour.','Le projet est présenté en plan masse, plans, coupes, perspectives, croquis et maquette.']},
+    {id:'structure-filigrane',ref:'P-04',title:'Structure filigrane',type:'Structure',year:'Automne 2026, début de L2',cadre:'Projet de cours',prog:'Bureaux dans une structure filigrane',dim:'Volume de 2 000 m³ (± 10 %)',outils:'Archicad, maquette',
+     cover:'fil-cover.jpg',
+     images:[
+       {src:'fil-axo.jpg',alt:'Axonométrie de la structure filigrane : parois en treillis croisé et toiture en dents de scie',cap:'Axonométrie',wide:true},
+       {src:'fil-plan-rdc.png',alt:'Plan du rez-de-chaussée de la structure filigrane, avec deux volées d’escalier',cap:'Plan RDC'},
+       {src:'fil-plan-r1.png',alt:'Plan de la toiture de la structure filigrane, avec sa trame et l’escalier',cap:'Plan de toiture'},
+       {src:'fil-coupe-1.png',alt:'Coupe longitudinale de la structure filigrane',cap:'Coupe 1'},
+       {src:'fil-coupe-2.png',alt:'Coupe transversale de la structure filigrane avec la toiture en dents de scie',cap:'Coupe 2'},
+       {src:'fil-m1.jpg',alt:'Maquette de la structure filigrane, vue depuis un angle',cap:'Maquette, vue 1',third:true},
+       {src:'fil-m2.jpg',alt:'Maquette de la structure filigrane, vue de la toiture',cap:'Maquette, vue 2',third:true},
+       {src:'fil-m3.jpg',alt:'Maquette de la structure filigrane, vue de la paroi en treillis',cap:'Maquette, vue 3',third:true}
+     ],
+     text:['Un projet de 2 000 m³ (± 10 %) en structure filigrane, dans laquelle on pourrait aménager des bureaux. La structure définit elle-même les espaces.','Des éléments fins, disposés en croix, forment les parois et une toiture en dents de scie. Deux planchers s’insèrent dans la trame et sont reliés par un escalier.','Le projet est présenté en axonométrie, plans, coupes et maquette.']},
+    {id:'maison-keremma',ref:'P-05',title:'Étude de la maison Keremma',type:'Analyse',year:'Automne 2026, début de L2',cadre:'Intensif Maquette numérique',prog:'Maison d’Anne Lacaton et Jean-Philippe Vassal',dim:'Plans 1:150, coupes 1:50 et 1:100',outils:'Archicad',
+     cover:'keremma-cover.jpg',
+     images:[
+       {src:'keremma-axonometrie.jpg',alt:'Axonométrie de la maison Keremma : trois volumes dans un jardin arboré',cap:'Axonométrie',wide:true},
+       {src:'keremma-perspective.jpg',alt:'Perspective de la maison Keremma',cap:'Perspective',wide:true},
+       {src:'keremma-plan-rdc.jpg',alt:'Plan du rez-de-chaussée de la maison Keremma',cap:'Plan du rez-de-chaussée, 1:150',wide:true},
+       {src:'keremma-plan-toiture.jpg',alt:'Plan de toiture de la maison Keremma',cap:'Plan de toiture, 1:150'},
+       {src:'keremma-coupe-aa.jpg',alt:'Coupe AA de la maison Keremma',cap:'Coupe AA, 1:50'},
+       {src:'keremma-coupe-bb.jpg',alt:'Coupe BB de la maison Keremma',cap:'Coupe BB, 1:100'},
+       {src:'keremma-facade-nord.jpg',alt:'Façade nord de la maison Keremma',cap:'Façade nord, 1:100'},
+       {src:'keremma-facade-sud.jpg',alt:'Façade sud de la maison Keremma',cap:'Façade sud, 1:100'},
+       {src:'keremma-facade-est.jpg',alt:'Façade est de la maison Keremma',cap:'Façade est, 1:150'},
+       {src:'keremma-facade-ouest.jpg',alt:'Façade ouest de la maison Keremma',cap:'Façade ouest, 1:150',wide:true}
+     ],
+     text:['Étude de la maison Keremma, d’Anne Lacaton et Jean-Philippe Vassal, redessinée en entier avec Archicad dans le cadre de l’intensif Maquette numérique.','Trois volumes sont posés dans un jardin arboré. La planche réunit le plan, le plan de toiture, deux coupes, les quatre façades, une perspective et une axonométrie, toutes mises en page avec le même cartouche.']}
+  ];
+
+  var grid=document.getElementById('grid');
+  grid.innerHTML=projects.map(function(p){
+    var t=p.cover?'<img src="'+p.cover+'" alt="" loading="lazy" style="object-position:'+(p.pos||'50% 50%')+'">':soon(p.title);
+    return '<article class="card"><a href="#projet-'+p.id+'"><div class="thumb">'+t+'</div>'+
+      '<div class="card-meta"><span class="ref mono">'+p.ref+'</span><div><h3>'+p.title+'</h3><p>'+p.type+' · '+p.prog+'</p></div></div></a></article>';
+  }).join('');
+
+  var detail=document.getElementById('detail'),lastId=null;
+  function gallery(p){
+    if(!p.images.length)return '<div class="thumb">'+soon(p.title)+'</div>';
+    return '<div class="gallery">'+p.images.map(function(im){
+      return '<figure'+(im.wide?' class="wide"':im.third?' class="third"':'')+'><div class="frame"><img src="'+im.src+'" alt="'+im.alt+'" loading="lazy"></div><figcaption class="mono">'+im.cap+'</figcaption></figure>';
+    }).join('')+'</div>';
+  }
+  function openProject(p){
+    var k=projects.indexOf(p),prev=projects[(k+projects.length-1)%projects.length],next=projects[(k+1)%projects.length];
+    lastId=p.id;
+    detail.innerHTML=
+      '<div class="wrap"><div class="d-bar mono"><button class="btn" type="button" id="d-close">← Retour aux projets</button>'+
+      '<div class="d-nav"><a class="btn" href="#projet-'+prev.id+'" aria-label="Projet précédent : '+prev.title+'">Précédent</a>'+
+      '<a class="btn" href="#projet-'+next.id+'" aria-label="Projet suivant : '+next.title+'">Suivant</a></div></div>'+
+      '<div class="d-body"><div>'+gallery(p)+'</div>'+
+      '<div class="d-info"><span class="ref mono">Planche '+p.ref+'</span><h2 id="d-title">'+p.title+'</h2>'+
+      '<dl class="cartouche" style="margin-top:18px">'+
+      [['Type',p.type],['Année',p.year],['Cadre',p.cadre],['Programme',p.prog],['Format',p.dim],['Outils',p.outils]].filter(function(r){return r[1];}).map(function(r){return '<div><dt class="mono">'+r[0]+'</dt><dd>'+r[1]+'</dd></div>';}).join('')+
+      '</dl><div class="d-text">'+p.text.map(function(s){return '<p>'+s+'</p>';}).join('')+'</div></div></div></div>';
+    detail.hidden=false;detail.scrollTop=0;
+    document.getElementById('d-close').addEventListener('click',function(){location.hash='';});
+    document.getElementById('d-close').focus({preventScroll:true});
+  }
+  function closeProject(){
+    if(detail.hidden)return;
+    detail.hidden=true;detail.innerHTML='';
+    var l=lastId&&grid.querySelector('a[href="#projet-'+lastId+'"]');
+    if(l)l.focus({preventScroll:true});
+  }
+  function route(){
+    var h=location.hash.slice(1),p=projects.filter(function(x){return 'projet-'+x.id===h;})[0];
+    if(p)openProject(p);else closeProject();
+  }
+  window.addEventListener('hashchange',route);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!detail.hidden)location.hash='';});
+  route();
+
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('[data-go]');if(!a)return;
+    e.preventDefault();
+    var el=document.getElementById(a.dataset.go);
+    if(el)el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  });
+
+  var toast=document.getElementById('toast'),tt;
+  function say(m){toast.textContent=m;toast.hidden=false;clearTimeout(tt);tt=setTimeout(function(){toast.hidden=true;},2200);}
+  [].forEach.call(document.querySelectorAll('.contact-list div'),function(row){
+    var btn=row.querySelector('button'),span=row.querySelector('[data-copy]');
+    btn.addEventListener('click',function(){
+      function fallback(){var r=document.createRange();r.selectNodeContents(span);var s=getSelection();s.removeAllRanges();s.addRange(r);say('Texte sélectionné, copiez-le à la main');}
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(span.textContent).then(function(){say('Copié');},fallback);
+      }else fallback();
+    });
+  });
+  document.getElementById('note-close').addEventListener('click',function(){document.getElementById('note').hidden=true;});
+})();
+</script>
+
+</body>
+</html>
